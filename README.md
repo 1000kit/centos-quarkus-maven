@@ -2,6 +2,6 @@
 CentOS quarkus maven build image
 
 ```
-docker build --tag quay.io/tkit/centos-quarkus-maven:19.3.1-java11-3 .
-docker push quay.io/tkit/centos-quarkus-maven:19.3.1-java11-3
+git tag -a 0.0.0 -m "0.0.0"
+git push --tags
 ```
