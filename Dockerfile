@@ -37,7 +37,7 @@ RUN yum -y install fontconfig freetype dejavu-sans-mono-fonts docker-ce
 
 COPY --from=samo /project/samo /usr/local/bin/samo
 COPY --from=oc /tmp/oc /usr/local/bin/
-COPY --from=helm linux-amd64 /usr/local/bin
+COPY --from=helm /project/linux-amd64 /usr/local/bin
 COPY --from=helm /tmp/linux-amd64/helm /usr/local/bin/helm3beta4
 
 USER quarkus
