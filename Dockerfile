@@ -7,6 +7,10 @@ RUN curl -sLo /tmp/oc.tar.gz https://github.com/openshift/origin/releases/downlo
     && tar xzvf /tmp/oc.tar.gz -C /tmp/ \
     && mv /tmp/openshift-origin-client-tools-${OC_VERSION}-${OC_TAG_SHA}-linux-64bit/oc /tmp/ \
     && rm -rf /tmp/oc.tar.gz /tmp/openshift-origin-client-tools-${OC_VERSION}-${OC_TAG_SHA}-linux-64bit \
+    && curl -sLo /tmp/yq "https://github.com/mikefarah/yq/releases/download/3.2.1/yq_linux_amd64" \
+    && chmod +x /tmp/yq \
+    && curl -sLo /tmp/argocd "https://github.com/argoproj/argo-cd/releases/download/v1.4.2/argocd-linux-amd64" \
+    && chmod +x /tmp/argocd \
     && ls -all .
 
 FROM quay.io/quarkus/centos-quarkus-maven:20.0.0-java11 as helm
@@ -37,6 +41,8 @@ RUN yum -y install fontconfig freetype dejavu-sans-mono-fonts docker-ce
 
 COPY --from=samo /project/samo /usr/local/bin/samo
 COPY --from=oc /tmp/oc /usr/local/bin/
+COPY --from=oc /tmp/yq /usr/local/bin/
+COPY --from=oc /tmp/argocd /usr/local/bin/
 COPY --from=helm /project/linux-amd64 /usr/local/bin
 COPY --from=helm /tmp/linux-amd64/helm /usr/local/bin/helm3beta4
 
