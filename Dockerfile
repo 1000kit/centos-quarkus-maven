@@ -34,10 +34,10 @@ FROM quay.io/quarkus/centos-quarkus-maven:20.0.0-java11
 
 USER root
 
-RUN yum install -y yum-utils device-mapper-persistent-data lvm2 \
+RUN yum install -y yum-utils device-mapper-persistent-data lvm2 epel-release \
     && yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 
-RUN yum -y install fontconfig freetype dejavu-sans-mono-fonts docker-ce
+RUN yum -y install fontconfig freetype dejavu-sans-mono-fonts docker-ce jq
 
 COPY --from=samo /project/samo /usr/local/bin/samo
 COPY --from=oc /tmp/oc /usr/local/bin/
